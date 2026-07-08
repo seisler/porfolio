@@ -1,0 +1,4 @@
+#!/bin/sh
+# Native git hook (core.hooksPath -> .githooks). Validates the commit
+# message against docs/commit-convention.md via commitlint.
+./node_modules/.bin/commitlint --edit "$1"
