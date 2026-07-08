@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uvx pyfiglet *)",
+      "Bash(npx astro *)",
+      "Bash(npm view *)",
+      "Bash(sudo -n true)"
+    ]
+  }
+}
