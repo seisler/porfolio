@@ -1,5 +1,6 @@
 ---
-
+import '../shared/tokens/tokens.css';
+import NameBanner from '../widgets/name-banner/NameBanner.astro';
 ---
 
 <html lang="en">
@@ -9,9 +10,23 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Mark Schenzle</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<NameBanner />
 	</body>
 </html>
+
+<style>
+	body {
+		margin: 0;
+		background-color: var(--color-background);
+		color: var(--color-text);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 100dvh;
+		padding: var(--space-4);
+	}
+</style>
+

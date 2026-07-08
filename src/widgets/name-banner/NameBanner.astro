@@ -1,0 +1,65 @@
+---
+// Assumes shared/tokens/tokens.css is already loaded by the page/layout.
+---
+
+<figure class="name-banner" role="img" aria-label="Mark Schenzle">
+	<pre class="name-banner__line name-banner__first" aria-hidden="true">███╗   ███╗ █████╗ ██████╗ ██╗  ██╗
+████╗ ████║██╔══██╗██╔══██╗██║ ██╔╝
+██╔████╔██║███████║██████╔╝█████╔╝
+██║╚██╔╝██║██╔══██║██╔══██╗██╔═██╗
+██║ ╚═╝ ██║██║  ██║██║  ██║██║  ██╗
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝</pre>
+	<pre class="name-banner__line name-banner__last" aria-hidden="true">███████╗ ██████╗██╗  ██╗███████╗███╗   ██╗███████╗██╗     ███████╗
+██╔════╝██╔════╝██║  ██║██╔════╝████╗  ██║╚══███╔╝██║     ██╔════╝
+███████╗██║     ███████║█████╗  ██╔██╗ ██║  ███╔╝ ██║     █████╗
+╚════██║██║     ██╔══██║██╔══╝  ██║╚██╗██║ ███╔╝  ██║     ██╔══╝
+███████║╚██████╗██║  ██║███████╗██║ ╚████║███████╗███████╗███████╗
+╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝╚══════╝</pre>
+</figure>
+
+<style>
+	.name-banner {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin: 0;
+		font-family: var(--font-family-mono);
+		line-height: var(--line-height-tight);
+	}
+
+	.name-banner__line {
+		margin: 0;
+		overflow-x: auto;
+		white-space: pre;
+	}
+
+	.name-banner__first {
+		font-size: var(--font-size-md);
+		color: var(--color-text);
+	}
+
+	.name-banner__last {
+		font-size: var(--font-size-xs);
+		color: var(--color-text-muted);
+	}
+
+	@media (--bp-md) {
+		.name-banner__first {
+			font-size: var(--font-size-xl);
+		}
+
+		.name-banner__last {
+			font-size: var(--font-size-md);
+		}
+	}
+
+	@media (--bp-lg) {
+		.name-banner__first {
+			font-size: var(--font-size-2xl);
+		}
+
+		.name-banner__last {
+			font-size: var(--font-size-lg);
+		}
+	}
+</style>
