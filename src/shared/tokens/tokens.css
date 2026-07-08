@@ -1,0 +1,40 @@
+/* Starter palette: monochrome console look with one accent, per ADR-0003.
+   Colors are placeholders — swap the values below once the palette is final. */
+:root {
+	--color-background: hsl(0deg 0% 5%);
+	--color-surface: hsl(0deg 0% 9%);
+	--color-text: hsl(0deg 0% 96%);
+	--color-text-muted: hsl(0deg 0% 55%);
+	--color-accent: hsl(150deg 70% 50%);
+	--color-border: hsl(0deg 0% 20%);
+	--font-family-mono: 'JetBrains Mono', monospace;
+	--font-size-xs: 0.75rem;
+	--font-size-sm: 0.875rem;
+	--font-size-base: 1rem;
+	--font-size-md: 1.25rem;
+	--font-size-lg: 1.5rem;
+	--font-size-xl: 2rem;
+	--font-size-2xl: 3rem;
+	--font-size-3xl: 4rem;
+	--font-weight-light: 300;
+	--font-weight-regular: 400;
+	--font-weight-bold: 700;
+	--line-height-tight: 1.1;
+	--line-height-normal: 1.5;
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.5rem;
+	--space-6: 2rem;
+	--space-7: 3rem;
+	--space-8: 4rem;
+	--radius-sm: 0.25rem;
+	--radius-md: 0.5rem;
+	--radius-lg: 1rem;
+}
+
+/* Breakpoint tokens per ADR-0006 — var() can't resolve inside @media,
+   so these are resolved at build time by postcss-custom-media. */
+@custom-media --bp-md (min-width: 48rem);
+@custom-media --bp-lg (min-width: 64rem);
