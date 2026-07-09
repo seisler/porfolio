@@ -9,9 +9,26 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint:css": "stylelint \"src/**/*.{css,astro}\"",
+    "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {
     "astro": "^7.0.7"
+  },
+  "lint-staged": {
+    "src/**/*.{css,astro}": "stylelint"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@csstools/postcss-global-data": "^4.0.0",
+    "lint-staged": "^17.0.8",
+    "postcss-custom-media": "^12.0.1",
+    "postcss-html": "^1.8.1",
+    "stylelint": "^17.14.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-declaration-strict-value": "^1.11.1",
+    "stylelint-media-use-custom-media": "^4.1.0"
   }
 }

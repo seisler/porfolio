@@ -1,0 +1,4 @@
+#!/bin/sh
+# Native git hook (core.hooksPath -> .githooks). Auto-wired by the
+# package.json "prepare" script on npm install.
+./node_modules/.bin/lint-staged

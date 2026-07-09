@@ -1,0 +1,61 @@
+{
+	"extends": ["stylelint-config-standard"],
+	"plugins": ["stylelint-declaration-strict-value", "stylelint-media-use-custom-media"],
+	"rules": {
+		"selector-class-pattern": [
+			"^[a-z]+(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
+			{
+				"message": "Class names must follow BEM: block, block__element, block--modifier. See docs/adr/0007-bem-naming-convention.md"
+			}
+		],
+		"scale-unlimited/declaration-strict-value": [
+			[
+				"/color$/",
+				"font-size",
+				"font-family",
+				"font-weight",
+				"line-height",
+				"border-radius",
+				"/^margin/",
+				"/^padding/",
+				"gap",
+				"row-gap",
+				"column-gap"
+			],
+			{
+				"ignoreValues": [
+					"inherit",
+					"initial",
+					"unset",
+					"transparent",
+					"currentColor",
+					"none",
+					"normal",
+					"auto",
+					"0",
+					"100%"
+				],
+				"message": "Use a design token (var(--token-name)) instead of a hardcoded value. See docs/adr/0003-design-tokens-and-stylelint.md"
+			}
+		],
+		"csstools/media-use-custom-media": [
+			"always",
+			{
+				"message": "Use a breakpoint custom-media token (e.g. (--bp-md)) instead of a raw min-width/max-width value. See docs/adr/0006-mobile-first-breakpoints.md"
+			}
+		]
+	},
+	"overrides": [
+		{
+			"files": ["**/*.astro"],
+			"customSyntax": "postcss-html"
+		},
+		{
+			"files": ["src/shared/tokens/tokens.css"],
+			"rules": {
+				"scale-unlimited/declaration-strict-value": null,
+				"csstools/media-use-custom-media": null
+			}
+		}
+	]
+}
