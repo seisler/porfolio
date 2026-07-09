@@ -4,7 +4,11 @@
       "Bash(uvx pyfiglet *)",
       "Bash(npx astro *)",
       "Bash(npm view *)",
-      "Bash(sudo -n true)"
+      "Bash(sudo -n true)",
+      "Bash(curl -s \"https://api.trello.com/1/cards/EKQKaWCY?fields=name,desc,labels&checklists=all&checklist_fields=name&checkItem_fields=name,state\" -H \"Accept: application/json\")",
+      "Edit(~/.claude/skills/sneak/**)",
+      "Bash(git fetch *)",
+      "Bash(git commit *)"
     ]
   }
 }
