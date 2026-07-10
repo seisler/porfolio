@@ -1,6 +1,8 @@
 ---
 import '../shared/tokens/tokens.css';
+import Header from '../widgets/header/Header.astro';
 import NameBanner from '../widgets/name-banner/NameBanner.astro';
+import Footer from '../widgets/footer/Footer.astro';
 ---
 
 <html lang="en">
@@ -13,19 +15,29 @@ import NameBanner from '../widgets/name-banner/NameBanner.astro';
 		<title>Mark Schenzle</title>
 	</head>
 	<body>
-		<NameBanner />
+		<Header />
+		<main>
+			<NameBanner />
+		</main>
+		<Footer />
 	</body>
 </html>
 
 <style>
 	body {
+		display: flex;
+		flex-direction: column;
+		min-height: 100dvh;
 		margin: 0;
 		background-color: var(--color-background);
 		color: var(--color-text);
+	}
+
+	main {
 		display: flex;
+		flex: 1;
 		align-items: center;
 		justify-content: center;
-		min-height: 100dvh;
 		padding: var(--space-4);
 	}
 </style>
