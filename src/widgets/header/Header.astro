@@ -1,0 +1,185 @@
+---
+// Global site header / navbar. Assumes shared/tokens/tokens.css is already
+// loaded by the page. Active-link state is resolved at build/render time from
+// Astro.url.pathname — no client-side JavaScript (ADR-0002, research.md
+// Decision 2). The mobile/tablet disclosure panel uses the native Popover API
+// (research.md Decision 1) — still zero client-side JavaScript.
+const links = [
+	{ href: '/', label: 'Home' },
+	{ href: '/job-history', label: 'Job History' },
+	{ href: '/projects', label: 'Projects' },
+	{ href: '/contact', label: 'Contact' },
+];
+
+const current = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+const isActive = (href: string): boolean =>
+	href === '/'
+		? current === '/'
+		: current === href || current.startsWith(`${href}/`);
+---
+
+<header class="header">
+	<button
+		class="header__menu-button"
+		type="button"
+		popovertarget="header-panel"
+		aria-label="Open navigation menu"
+	>
+		☰
+	</button>
+
+	<nav class="header__panel" id="header-panel" popover aria-label="Primary">
+		<button
+			class="header__close-button"
+			type="button"
+			popovertarget="header-panel"
+			popovertargetaction="hide"
+			aria-label="Close navigation menu"
+		>
+			✕
+		</button>
+
+		<ul class="header__list">
+			{
+				links.map((link) => (
+					<li class="header__item">
+						<a
+							class:list={[
+								'header__link',
+								{ 'header__link--active': isActive(link.href) },
+							]}
+							href={link.href}
+							aria-current={isActive(link.href) ? 'page' : undefined}
+						>
+							{link.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</header>
+
+<style>
+	.header {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		padding: var(--space-4);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.header__menu-button,
+	.header__close-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: var(--space-2);
+		color: var(--color-text);
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-xl);
+		line-height: var(--line-height-tight);
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+	}
+
+	/* Mobile (base): full-screen panel sliding in from the right edge. */
+	.header__panel {
+		position: fixed;
+		inset: 0 0 0 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 100%;
+		padding: var(--space-6);
+		margin: 0;
+		color: var(--color-text);
+		background-color: var(--color-surface);
+		border: none;
+		z-index: var(--z-panel);
+		translate: 100% 0;
+		transition:
+			translate var(--motion-duration-panel) ease,
+			display var(--motion-duration-panel) allow-discrete,
+			overlay var(--motion-duration-panel) allow-discrete;
+	}
+
+	.header__panel:popover-open {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		translate: 0 0;
+	}
+
+	/* Animate the entry from off-screen the first time the panel is shown. */
+	@starting-style {
+		.header__panel:popover-open {
+			translate: 100% 0;
+		}
+	}
+
+	.header__close-button {
+		align-self: flex-end;
+	}
+
+	.header__list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.header__link {
+		display: block;
+		padding: var(--space-2) var(--space-3);
+		color: var(--color-text-muted);
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-md);
+		text-decoration: none;
+	}
+
+	.header__link--active {
+		color: var(--color-accent);
+	}
+
+	.header__link:hover,
+	.header__link:focus-visible {
+		color: var(--color-text);
+	}
+
+	/* Tablet: lateral (partial-width) panel instead of full-screen. */
+	@media (--bp-md) {
+		.header__panel {
+			width: var(--size-panel-width);
+			max-width: var(--size-panel-width);
+		}
+	}
+
+	/* Desktop: hide the menu controls and neutralize the popover so the nav
+	   renders as a normal inline row (research.md Decision 1). */
+	@media (--bp-lg) {
+		.header__menu-button,
+		.header__close-button {
+			display: none;
+		}
+
+		.header__panel {
+			position: static;
+			display: block;
+			inset: auto;
+			width: auto;
+			max-width: none;
+			padding: 0;
+			background-color: transparent;
+			translate: none;
+		}
+
+		.header__list {
+			flex-flow: row wrap;
+			gap: var(--space-5);
+		}
+	}
+</style>

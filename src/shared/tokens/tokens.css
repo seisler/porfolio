@@ -32,6 +32,16 @@
 	--radius-sm: 0.25rem;
 	--radius-md: 0.5rem;
 	--radius-lg: 1rem;
+
+	/* Stacking order — first z-index scale in the project, added for the
+	   header's slide-in nav panel (research.md Decision 3). */
+	--z-panel: 1000;
+
+	/* Motion — slide-in/out duration for the nav panel. */
+	--motion-duration-panel: 250ms;
+
+	/* Sizing — partial width of the lateral (tablet) nav panel. */
+	--size-panel-width: 20rem;
 }
 
 /* Breakpoint tokens per ADR-0006 — var() can't resolve inside @media,

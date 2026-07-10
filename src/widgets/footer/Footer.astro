@@ -1,0 +1,25 @@
+---
+// Global site footer. Assumes shared/tokens/tokens.css is already loaded by
+// the page. The year is computed at build time so it never goes stale — this
+// is build-time templating, not client-side JavaScript (ADR-0002, FR-004).
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+	<p class="footer__text">© {year} Mark Schenzle | All Rights Reserved</p>
+</footer>
+
+<style>
+	.footer {
+		padding: var(--space-4);
+		border-top: 1px solid var(--color-border);
+		text-align: center;
+	}
+
+	.footer__text {
+		margin: 0;
+		color: var(--color-text-muted);
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-sm);
+	}
+</style>
