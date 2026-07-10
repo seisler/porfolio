@@ -8,7 +8,9 @@
       "Bash(curl -s \"https://api.trello.com/1/cards/EKQKaWCY?fields=name,desc,labels&checklists=all&checklist_fields=name&checkItem_fields=name,state\" -H \"Accept: application/json\")",
       "Edit(~/.claude/skills/sneak/**)",
       "Bash(git fetch *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks)",
+      "Bash(git reset *)"
     ]
   }
 }
