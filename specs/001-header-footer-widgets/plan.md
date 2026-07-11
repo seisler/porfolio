@@ -9,9 +9,11 @@
 Add a global header widget (navbar: Home, Job History, Projects, Contact —
 inline on desktop, behind a hamburger-triggered slide-in panel on tablet/
 mobile) and a global footer widget (build-time-computed copyright line), both
-consumed by `src/pages/index.astro` today and reusable by future pages. The
-disclosure behavior for the mobile/tablet panel is implemented with the
-native Popover API (per ADR-0002) — no client-side JavaScript.
+imported and rendered by `src/pages/_layouts/BaseLayout.astro`, the direct
+consumer, with `src/pages/index.astro` consuming them indirectly through
+that layout and reusable by future pages. The disclosure behavior for the
+mobile/tablet panel is implemented with the native Popover API (per
+ADR-0002) — no client-side JavaScript.
 
 ## Technical Context
 
@@ -21,7 +23,7 @@ native Popover API (per ADR-0002) — no client-side JavaScript.
 
 **Storage**: N/A
 
-**Testing**: No automated test framework is configured in this repo, and none is introduced here — per the constitution's Principle II, static HTML/CSS is exempt from the TDD requirement (that applies only to client-side JS exceptions, which this feature has none of). Verification is Stylelint (`npm run lint:css`, already wired to pre-commit/CI) plus manual/visual review across viewport widths, per `quickstart.md`.
+**Testing**: The repo has an automated test framework (Vitest, e.g. `src/pages/_layouts/terminal-controller.test.ts`), used for the client-side JS exception (the terminal controller); this feature adds no widget-specific tests since it is static markup/CSS with no client-side JS — per the constitution's Principle II, static HTML/CSS is exempt from the TDD requirement. Verification is Stylelint (`npm run lint:css`, already wired to pre-commit/CI) plus manual/visual review across viewport widths, per `quickstart.md`.
 
 **Target Platform**: Static site, evergreen browsers. The Popover API requires a Baseline-2024 browser (Chrome/Edge 114+, Firefox 125+, Safari 17+) — acceptable for a personal portfolio site; no fallback is implemented for older browsers.
 

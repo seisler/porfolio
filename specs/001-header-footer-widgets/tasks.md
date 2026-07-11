@@ -10,7 +10,7 @@ description: "Task list for Header and Footer Widgets"
 
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md (N/A — no entities), quickstart.md
 
-**Tests**: Not requested. No automated test framework is configured in this repo (plan.md Technical Context); verification is Stylelint plus manual/visual review per quickstart.md, covered in Phase 6 (Polish).
+**Tests**: Not requested. The repo has an automated test framework (Vitest, used for the terminal controller's client-side JS per plan.md Technical Context), but this feature is static markup/CSS with no client-side JS, so no automated widget-specific tests are required; verification is Stylelint plus manual/visual review per quickstart.md, covered in Phase 6 (Polish).
 
 **Organization**: Tasks are grouped by user story (spec.md) to enable independent implementation and testing of each story.
 

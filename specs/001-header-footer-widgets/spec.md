@@ -96,10 +96,12 @@ panel, and each remains clickable/tappable.
 
 ### Edge Cases
 
-- What happens when a visitor clicks Job History, Projects, or Contact before
-  those pages exist? Per the scope decision below, these render as normal
-  links to their future routes and will 404 until the corresponding pages
-  ship in a later ticket — the nav itself is not blocked on that work.
+- What happens when a visitor clicks Job History or Projects? Both routes
+  (`/job-experience` and `/projects`) now have pages, so these render as
+  normal links and navigation succeeds — no 404. Contact's page
+  (`/contact`) also exists as a placeholder, but the header does not
+  currently include a Contact nav link (dropped pending its content); it
+  will be reinstated once that work lands.
 - What happens when the page content is shorter than the viewport? The footer
   must not float mid-page; it stays pinned to the bottom of the viewport or
   the end of content, whichever is lower.
@@ -161,8 +163,9 @@ panel, and each remains clickable/tappable.
   clipped content) across mobile, tablet, and desktop viewport widths.
 - **SC-003**: 100% of pages on the site display the same header and footer,
   with the currently active page indicated in the header.
-- **SC-004**: The footer's displayed year is always the current year with no
-  manual update required as years pass.
+- **SC-004**: The footer's displayed year reflects the current year as of the
+  site's most recent build; static deployments must be rebuilt at least
+  annually to keep the year current.
 - **SC-005**: On tablet and mobile viewports, a visitor can reach any of the
   four nav links within two taps (open the menu, then tap the link).
 
