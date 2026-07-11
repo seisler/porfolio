@@ -117,8 +117,11 @@ panel, and each remains clickable/tappable.
 
 ### Functional Requirements
 
-- **FR-001**: The site MUST display a header, present on every page, containing
-  four navigation links labeled Home, Job History, Projects, and Contact.
+- **FR-001**: The site MUST display a header, present on every page,
+  containing navigation links labeled Home, Job History, and Projects.
+  Contact is intentionally omitted for now (dropped pending its content —
+  see Edge Cases) and will be reinstated as a fourth link once that page's
+  content lands.
 - **FR-002**: Each nav link MUST be a real, directly clickable/tappable link
   (mouse, touch, or keyboard) — not something that requires a
   keyboard-only/command-driven interaction to reach.
@@ -130,9 +133,10 @@ panel, and each remains clickable/tappable.
   reachable and operable, footer text fully legible) from the smallest
   supported mobile viewport up through desktop widths, whether links are
   shown inline or behind a menu control.
-- **FR-006**: The Job History, Projects, and Contact links MUST point to
-  their intended routes even though those pages do not exist yet; building
-  those destination pages is explicitly out of scope for this feature.
+- **FR-006**: The Job History and Projects links MUST point to their
+  intended routes, `/job-experience` and `/projects`, which now exist as
+  real pages. (Contact's route, `/contact`, also exists as a placeholder,
+  but Contact is not currently a header link — see FR-001 and Edge Cases.)
 - **FR-007**: The header MUST be a distinct widget from the existing
   NameBanner; NameBanner remains unchanged and independently positioned, not
   merged into the header.
