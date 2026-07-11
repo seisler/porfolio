@@ -1,7 +1,8 @@
 ---
 // Global site footer. Assumes shared/tokens/tokens.css is already loaded by
-// the page. The year is computed at build time so it never goes stale — this
-// is build-time templating, not client-side JavaScript (ADR-0002, FR-004).
+// the page. The year is computed and baked in at build time — this is
+// build-time templating, not client-side JavaScript (ADR-0002, FR-004). It
+// reflects the most recent build and requires a rebuild to advance.
 const year = new Date().getFullYear();
 ---
 
