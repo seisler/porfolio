@@ -77,7 +77,9 @@ No `contracts/` directory: this feature exposes no API, CLI, or other interface 
 ```text
 src/
 ├── pages/
-│   └── index.astro              # Updated: renders Header + NameBanner + Footer
+│   ├── _layouts/
+│   │   └── BaseLayout.astro     # Updated: imports and renders Header + NameBanner + Footer
+│   └── index.astro              # Consumes BaseLayout only (Header/NameBanner/Footer are indirect)
 ├── widgets/
 │   ├── name-banner/              # Existing, unchanged (kept independent per clarification)
 │   │   └── NameBanner.astro
@@ -90,7 +92,7 @@ src/
         └── tokens.css            # Extended: z-index, panel width/transition tokens
 ```
 
-**Structure Decision**: Follows the existing simplified-FSD layout (ADR-0004) exactly as already established by `name-banner` — no new layers, no new top-level directories. `Header` and `Footer` are new sibling widgets under `src/widgets/`, each a single `.astro` file with a scoped `<style>` block, consuming `src/shared/tokens/tokens.css`. `index.astro` is updated to import and render both around the existing `NameBanner`.
+**Structure Decision**: Follows the existing simplified-FSD layout (ADR-0004) exactly as already established by `name-banner` — no new layers, no new top-level directories. `Header` and `Footer` are new sibling widgets under `src/widgets/`, each a single `.astro` file with a scoped `<style>` block, consuming `src/shared/tokens/tokens.css`. `BaseLayout.astro` is the direct compositor: it imports and renders `Header`, `NameBanner`, and `Footer` around each route's slotted content. `index.astro` only consumes `BaseLayout` — it does not import the widgets directly.
 
 ## Complexity Tracking
 
