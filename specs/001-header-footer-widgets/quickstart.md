@@ -4,7 +4,7 @@
 
 ```bash
 npm install
-astro dev --background
+npx astro dev --background
 ```
 
 ## Scenarios
