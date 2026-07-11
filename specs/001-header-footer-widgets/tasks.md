@@ -58,7 +58,7 @@ Single Astro project (plan.md Project Structure): `src/pages/`, `src/widgets/`, 
 
 ### Implementation for User Story 1
 
-- [X] T005 [US1] Create `src/widgets/header/Header.astro` with `.header`, `.header__nav`, `.header__link` BEM markup (ADR-0007): a `<nav>` containing four `<a>` links labeled Home (`/`), Job History (`/job-history`), Projects (`/projects`), and Contact (`/contact`)
+- [X] T005 [US1] Create `src/widgets/header/Header.astro` with `.header`, `.header__nav`, `.header__link` BEM markup (ADR-0007): a `<nav>` containing four `<a>` links labeled Home (`/`), Job History (`/job-experience`), Projects (`/projects`), and Contact (`/contact`)
 - [X] T006 [US1] In `src/widgets/header/Header.astro`, compare `Astro.url.pathname` against each link's `href` and apply `aria-current="page"` plus a `.header__link--active` modifier class to the matching link (research.md Decision 2, FR-003)
 - [X] T007 [US1] Add scoped `<style>` block in `src/widgets/header/Header.astro` styling `.header`, `.header__nav`, `.header__link`, and `.header__link--active` using only tokens from `src/shared/tokens/tokens.css` (ADR-0003); desktop base treatment shows links inline (mobile-first note: full inline-only styling is refined in Phase 5/US3 for narrower widths)
 - [X] T008 [US1] Update `src/pages/index.astro` to import and render `Header` from `src/widgets/header/Header.astro`, placed before `NameBanner` in `<body>`, keeping `NameBanner` unchanged and independently positioned (FR-007)
