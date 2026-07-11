@@ -1,0 +1,12 @@
+{
+	"command": "npm run projects",
+	"route": "/projects",
+	"title": "Projects · Mark Schenzle",
+	"lines": [
+		{
+			"time": "00:20:00",
+			"text": "JS Sandbox Console",
+			"url": "https://github.com/seisler/js-sandbox/releases"
+		}
+	]
+}

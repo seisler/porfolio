@@ -1,0 +1,13 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from './_layouts/BaseLayout.astro';
+import TerminalLog from '../widgets/terminal-log/TerminalLog.astro';
+
+const entry = await getEntry('commands', 'projects');
+if (!entry) throw new Error('Missing "projects" command entry');
+const { command, title, lines } = entry.data;
+---
+
+<BaseLayout title={title} command={command}>
+	<TerminalLog lines={lines} tag="projects" />
+</BaseLayout>
