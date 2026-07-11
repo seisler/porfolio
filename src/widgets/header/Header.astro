@@ -118,6 +118,12 @@ const isActive = (href: string): boolean =>
 		}
 	}
 
+	@media (--motion-reduce) {
+		.header__panel {
+			transition: none;
+		}
+	}
+
 	.header__close-button {
 		align-self: flex-end;
 	}
