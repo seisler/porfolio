@@ -1,21 +1,29 @@
 ---
 // Assumes shared/tokens/tokens.css is already loaded by the page/layout.
+// The ASCII words are decorative (aria-hidden); the name is exposed to
+// assistive tech via the visually-hidden label. The default slot renders
+// alongside the "Schenzle" word (above it on tablet+), letting the layout
+// tuck intro copy into the whitespace beside the smaller word.
 ---
 
-<figure class="name-banner" role="img" aria-label="Mark Schenzle">
+<div class="name-banner">
+	<span class="name-banner__sr">Mark Schenzle</span>
 	<pre class="name-banner__line name-banner__first" aria-hidden="true">███╗   ███╗ █████╗ ██████╗ ██╗  ██╗
 ████╗ ████║██╔══██╗██╔══██╗██║ ██╔╝
 ██╔████╔██║███████║██████╔╝█████╔╝
 ██║╚██╔╝██║██╔══██║██╔══██╗██╔═██╗
 ██║ ╚═╝ ██║██║  ██║██║  ██║██║  ██╗
 ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝</pre>
-	<pre class="name-banner__line name-banner__last" aria-hidden="true">███████╗ ██████╗██╗  ██╗███████╗███╗   ██╗███████╗██╗     ███████╗
+	<div class="name-banner__side">
+		<div class="name-banner__aside"><slot /></div>
+		<pre class="name-banner__line name-banner__last" aria-hidden="true">███████╗ ██████╗██╗  ██╗███████╗███╗   ██╗███████╗██╗     ███████╗
 ██╔════╝██╔════╝██║  ██║██╔════╝████╗  ██║╚══███╔╝██║     ██╔════╝
 ███████╗██║     ███████║█████╗  ██╔██╗ ██║  ███╔╝ ██║     █████╗
 ╚════██║██║     ██╔══██║██╔══╝  ██║╚██╗██║ ███╔╝  ██║     ██╔══╝
 ███████║╚██████╗██║  ██║███████╗██║ ╚████║███████╗███████╗███████╗
 ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝╚══════╝</pre>
-</figure>
+	</div>
+</div>
 
 <style>
 	.name-banner {
@@ -27,14 +35,39 @@
 		line-height: var(--line-height-tight);
 	}
 
+	/* Visually-hidden accessible name for the decorative ASCII art. */
+	.name-banner__sr {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		border: 0;
+		clip-path: inset(50%);
+	}
+
+	.name-banner__side {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		min-width: 0;
+	}
+
+	/* Small screens: the intro copy sits below the stacked name. */
+	.name-banner__aside {
+		order: 1;
+	}
+
 	.name-banner__line {
+		min-width: 0;
 		margin: 0;
-		overflow-x: auto;
+		overflow: hidden;
 		white-space: pre;
 	}
 
 	.name-banner__first {
-		font-size: var(--font-size-md);
+		font-size: var(--font-size-sm);
 		color: var(--color-text);
 	}
 
@@ -43,23 +76,36 @@
 		color: var(--color-text-muted);
 	}
 
+	/* From tablet up, "Mark" sits to the left of the "Schenzle" column, and
+	   the intro copy tucks into the whitespace directly above that smaller
+	   word. Bottom-align so the two words share a common baseline. */
 	@media (--bp-md) {
+		.name-banner {
+			flex-direction: row;
+			align-items: flex-end;
+			gap: var(--space-4);
+		}
+
+		.name-banner__aside {
+			order: -1;
+		}
+
+		.name-banner__first {
+			font-size: var(--font-size-lg);
+		}
+
+		.name-banner__last {
+			font-size: var(--font-size-sm);
+		}
+	}
+
+	@media (--bp-lg) {
 		.name-banner__first {
 			font-size: var(--font-size-xl);
 		}
 
 		.name-banner__last {
 			font-size: var(--font-size-md);
-		}
-	}
-
-	@media (--bp-lg) {
-		.name-banner__first {
-			font-size: var(--font-size-2xl);
-		}
-
-		.name-banner__last {
-			font-size: var(--font-size-lg);
 		}
 	}
 </style>

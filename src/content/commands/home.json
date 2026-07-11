@@ -1,0 +1,19 @@
+{
+	"command": "npm run home",
+	"route": "/",
+	"title": "Mark Schenzle",
+	"lines": [
+		{ "time": "00:45:57", "text": "Full stack developer who genuinely loves the craft." },
+		{ "time": "00:45:58", "text": "React and Svelte 5 shape my frontend work." },
+		{ "time": "00:45:59", "text": "Node.js, PHP, and Rust cover the backend." },
+		{ "time": "00:46:00", "text": "Tauri/Electron let me take things to desktop." },
+		{
+			"time": "00:46:01",
+			"text": "I write functional code and think in systems — SOLID, FSD, hexagonal architecture, DDD guide how I build."
+		},
+		{
+			"time": "00:46:02",
+			"text": "Architecture and design patterns aren't a checkbox for me, they're the fun part."
+		}
+	]
+}

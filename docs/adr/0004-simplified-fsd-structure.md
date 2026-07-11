@@ -26,14 +26,14 @@ We want a folder/component organization strategy that scales reasonably as the p
 
 Chosen option: "Simplified FSD" —
 
-* `src/pages` — Astro's native file-based routing layer. Maps 1:1 to FSD's `pages` concept; no separate `app` layer needed since Astro's config/entry already fills that role.
+* `src/pages` — Astro's native file-based routing layer. Maps 1:1 to FSD's `pages` concept; no separate `app` layer needed since Astro's config/entry already fills that role. Page shells/templates (layouts) also live here, under `src/pages/_layouts/` — Astro excludes any `_`-prefixed path from routing, so this stays out of the route tree while remaining part of the `pages` layer. Layouts compose `widgets`/`shared` to assemble the chrome every route shares (nav, banners, footer); placing them in `pages` rather than `shared` keeps that composition legal under the import-direction rule below, since `shared` may not import from `widgets`.
 * `src/widgets` — composed, reusable page sections built from `shared` (e.g. header, footer, project grid, hero).
-* `src/shared` — design-system primitives: tokens ([ADR-0003](0003-design-tokens-and-stylelint.md)), base components (button, badge, icon), layouts (page shells/templates — these compose `widgets`/`shared`, so they live here rather than as their own top-level concept), and utilities.
+* `src/shared` — design-system primitives: tokens ([ADR-0003](0003-design-tokens-and-stylelint.md)), base components (button, badge, icon), and utilities. Nothing here composes `widgets`.
 * `entities` and `features` are **not** created. If the site later grows real domain logic (e.g., a blog with tags and relations) or a genuine multi-step interactive flow (e.g., a contact form with client validation), introduce the relevant layer at that point rather than up front.
-* Import direction is still enforced: `pages → widgets → shared`. Nothing in `shared` may import from `widgets`, nothing in `widgets` may import from `pages`.
+* Import direction is still enforced: `pages → widgets → shared`. Nothing in `shared` may import from `widgets`, nothing in `widgets` may import from `pages`. Layouts under `src/pages/_layouts/` are part of the `pages` layer, so their widget imports are ordinary top-down imports, not an exception to this rule.
 * Content data (`src/content`, Astro content collections) sits outside this UI layering — it's data, not UI, so it isn't a "layer" in the FSD sense.
 
-Confirmed in practice by [src/widgets/name-banner/NameBanner.astro](../../src/widgets/name-banner/NameBanner.astro), which consumes [src/shared/tokens/tokens.css](../../src/shared/tokens/tokens.css).
+Confirmed in practice by [src/widgets/name-banner/NameBanner.astro](../../src/widgets/name-banner/NameBanner.astro), which consumes [src/shared/tokens/tokens.css](../../src/shared/tokens/tokens.css), and by [src/pages/_layouts/BaseLayout.astro](../../src/pages/_layouts/BaseLayout.astro), which composes the `Header`, `NameBanner`, and `Footer` widgets as a `pages`-layer layout.
 
 ### Consequences
 

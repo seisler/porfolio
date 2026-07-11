@@ -3,11 +3,11 @@ import { getEntry } from 'astro:content';
 import BaseLayout from './_layouts/BaseLayout.astro';
 import TerminalLog from '../widgets/terminal-log/TerminalLog.astro';
 
-const entry = await getEntry('commands', 'home');
-if (!entry) throw new Error('Missing "home" command entry');
+const entry = await getEntry('commands', 'job-experience');
+if (!entry) throw new Error('Missing "job-experience" command entry');
 const { command, title, lines } = entry.data;
 ---
 
 <BaseLayout title={title} command={command}>
-	<TerminalLog lines={lines} tag="home" />
+	<TerminalLog lines={lines} tag="job-experience" />
 </BaseLayout>

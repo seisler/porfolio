@@ -1,0 +1,145 @@
+---
+// Global page shell shared by every route (ADR-0004: layouts live in the
+// `pages` layer, under the route-excluded `_layouts` folder, so they can
+// compose `widgets` without breaking the shared → widgets import ban).
+// Renders the terminal chrome — nav, name banner, and the intro block —
+// with each route's content slotted in below the prompt.
+// Design/CSS stays token-first (ADR-0003); the terminal navigation controller
+// is this project's one deliberate exception to "no client-side JS"
+// (ADR-0002), justified and scoped in ADR-0008.
+import { getCollection } from 'astro:content';
+import '../../shared/tokens/tokens.css';
+import Header from '../../widgets/header/Header.astro';
+import NameBanner from '../../widgets/name-banner/NameBanner.astro';
+import Footer from '../../widgets/footer/Footer.astro';
+
+interface Props {
+	title?: string;
+	// The command whose "output" the page content represents, e.g. `npm run home`.
+	// Appended to the prompt line so the terminal illusion reads as command → output.
+	command?: string;
+}
+
+const { title = 'Mark Schenzle', command } = Astro.props;
+
+// Every route's command/log data, handed to the client-side terminal
+// controller so it can render other pages' output in place without a real
+// navigation. See src/content.config.ts and docs/adr/0008-*.
+const commandEntries = (await getCollection('commands')).map((entry) => entry.data);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<Header />
+		<main class="layout">
+			<header class="layout__intro">
+				<NameBanner>
+					<p class="layout__welcome">Welcome to Mark's Terminal Portfolio</p>
+				</NameBanner>
+				<p class="layout__hint">
+					Type '?' or 'help' to view a list of available commands.
+				</p>
+				<p class="layout__prompt">
+					visitor@markschenzle.me:~$
+					{command && <>{' '}<span class="layout__command">{command}</span></>}
+				</p>
+			</header>
+			<div class="layout__content">
+				<slot />
+			</div>
+		</main>
+		<Footer />
+		<div id="terminal-announcer" class="terminal-announcer" aria-live="polite" />
+		<script
+			type="application/json"
+			id="terminal-registry"
+			is:inline
+			set:html={JSON.stringify(commandEntries).replace(/</g, '\\u003c')}
+		/>
+		<script>
+			import { initTerminal } from './terminal-controller';
+
+			const registryEl = document.getElementById('terminal-registry');
+			if (registryEl?.textContent) {
+				initTerminal(JSON.parse(registryEl.textContent));
+			}
+		</script>
+	</body>
+</html>
+
+<style>
+	body {
+		display: flex;
+		flex-direction: column;
+		min-height: 100dvh;
+		margin: 0;
+		background-color: var(--color-background);
+		color: var(--color-text);
+	}
+
+	.layout {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		padding: var(--space-4);
+		padding-left: var(--space-7);
+	}
+
+	.layout__intro {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.layout__welcome {
+		margin: 0;
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-md);
+		color: var(--color-text);
+	}
+
+	/* Two blank lines of separation between the welcome line and the hint. */
+	.layout__hint {
+		margin: var(--space-6) 0 0;
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-sm);
+		color: var(--color-text-muted);
+	}
+
+	.layout__prompt {
+		margin: var(--space-4) 0 0;
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-sm);
+		color: var(--color-accent);
+	}
+
+	/* The command is styled as if a human typed it after the prompt. */
+	.layout__command {
+		color: var(--color-accent-secondary);
+	}
+
+	.layout__content {
+		flex: 1;
+	}
+
+	/* Announces terminal-controller updates (command run/not found) to
+	   screen readers, since content changes without a page navigation. */
+	.terminal-announcer {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		border: 0;
+		clip-path: inset(50%);
+	}
+</style>

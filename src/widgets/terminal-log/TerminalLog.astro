@@ -1,0 +1,169 @@
+---
+// Renders a page's command output as a staggered-reveal terminal log,
+// followed by a fresh (decorative, no-JS) prompt line. `terminal-controller.ts`
+// (wired up once in BaseLayout) later hydrates that trailing prompt into a
+// real input and appends further command output to this same container, so
+// this component's styles are global (`is:global`) rather than Astro-scoped:
+// scoped CSS relies on a `data-astro-cid-*` attribute that only exists on
+// server-rendered elements, and would silently fail to match anything the
+// controller creates with `document.createElement`.
+interface LogLine {
+	time: string;
+	text: string;
+	url?: string;
+}
+
+interface Props {
+	lines: LogLine[];
+	tag: string;
+}
+
+const { lines, tag } = Astro.props;
+---
+
+<div class="resume-log" data-terminal-log>
+	{
+		lines.map(({ time, text, url }, index) => (
+			<p class="resume-log__line" style={`--resume-log-index: ${index}`}>
+				<span class="resume-log__meta" aria-hidden="true">
+					{time} [{tag}]
+				</span>{' '}
+				{url ? (
+					<a class="resume-log__link" href={url} target="_blank" rel="noopener noreferrer">
+						{text}
+					</a>
+				) : (
+					text
+				)}
+			</p>
+		))
+	}
+	<p class="resume-log__prompt" style={`--resume-log-index: ${lines.length}`}>
+		visitor@markschenzle.me:~${' '}
+		<span class="resume-log__cursor" aria-hidden="true" />
+	</p>
+</div>
+
+<style is:global>
+	.resume-log {
+		margin-top: var(--space-6);
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-sm);
+		line-height: var(--line-height-normal);
+		color: var(--color-text);
+	}
+
+	.resume-log__line {
+		margin: 0;
+		opacity: 0;
+		animation: resume-log-reveal var(--motion-duration-log-reveal) ease-out forwards;
+		animation-delay: calc(var(--motion-duration-log-stagger) * var(--resume-log-index));
+	}
+
+	/* The first output line of a command's result — same gap below its
+	   command echo as the echo itself gets above it, so every prompt↔log
+	   transition reads as the same "two blank lines" rhythm. */
+	.resume-log__prompt + .resume-log__line {
+		margin-top: var(--space-6);
+	}
+
+	.resume-log__line--error {
+		color: var(--color-danger);
+	}
+
+	.resume-log__meta {
+		color: var(--color-text-muted);
+	}
+
+	.resume-log__link {
+		color: var(--color-text);
+	}
+
+	.resume-log__link:hover,
+	.resume-log__link:focus-visible {
+		color: var(--color-accent);
+	}
+
+	/* A fresh, empty prompt — appears once the log lines above finish, as if
+	   the shell is now waiting for the next command. Once frozen (after a
+	   command has been typed into it), it gains a `.resume-log__command`
+	   child instead of an input. */
+	.resume-log__prompt {
+		margin: var(--space-6) 0 0;
+		opacity: 0;
+		color: var(--color-accent);
+		animation: resume-log-reveal var(--motion-duration-log-reveal) ease-out forwards;
+		animation-delay: calc(var(--motion-duration-log-stagger) * var(--resume-log-index));
+	}
+
+	.resume-log__command {
+		color: var(--color-accent-secondary);
+	}
+
+	/* Fixed width, not `field-sizing: content` — that's still new/unreliably
+	   supported, and on an empty input can end up computing to an
+	   effectively zero-size box that browsers refuse to focus at all. */
+	.resume-log__input {
+		width: 24ch;
+		padding: 0;
+		font: inherit;
+		color: var(--color-accent-secondary);
+		background: transparent;
+		border: none;
+		outline: none;
+		caret-color: var(--color-accent-secondary);
+	}
+
+	.resume-log__cursor {
+		display: inline-block;
+		width: 0.55em;
+		height: 1em;
+		background-color: var(--color-text);
+		vertical-align: text-bottom;
+
+		/* Stays solid (no blink keyframes applied yet) until the log lines
+		   above it have finished appearing, then starts blinking. */
+		animation: resume-log-blink var(--motion-duration-cursor-blink) steps(1) infinite;
+		animation-delay: calc(var(--motion-duration-log-stagger) * var(--resume-log-index));
+	}
+
+	/* Once the input is actually focused, its native caret takes over — the
+	   decorative cursor would otherwise sit awkwardly in front of typed text. */
+	.resume-log__prompt:focus-within .resume-log__cursor {
+		display: none;
+	}
+
+	@keyframes resume-log-reveal {
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes resume-log-blink {
+		0%,
+		49% {
+			opacity: 1;
+		}
+
+		50%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	@media (--motion-reduce) {
+		.resume-log__line {
+			opacity: 1;
+			animation: none;
+		}
+
+		.resume-log__prompt {
+			opacity: 1;
+			animation: none;
+		}
+
+		.resume-log__cursor {
+			animation: none;
+		}
+	}
+</style>
