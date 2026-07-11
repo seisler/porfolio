@@ -96,10 +96,12 @@ panel, and each remains clickable/tappable.
 
 ### Edge Cases
 
-- What happens when a visitor clicks Job History, Projects, or Contact before
-  those pages exist? Per the scope decision below, these render as normal
-  links to their future routes and will 404 until the corresponding pages
-  ship in a later ticket — the nav itself is not blocked on that work.
+- What happens when a visitor clicks Job History or Projects? Both routes
+  (`/job-experience` and `/projects`) now have pages, so these render as
+  normal links and navigation succeeds — no 404. Contact's page
+  (`/contact`) also exists as a placeholder, but the header does not
+  currently include a Contact nav link (dropped pending its content); it
+  will be reinstated once that work lands.
 - What happens when the page content is shorter than the viewport? The footer
   must not float mid-page; it stays pinned to the bottom of the viewport or
   the end of content, whichever is lower.

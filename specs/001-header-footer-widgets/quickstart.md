@@ -12,13 +12,14 @@ astro dev --background
 ### 1. Desktop nav (User Story 1)
 
 1. Open the site at a desktop viewport width (≥64rem / 1024px).
-2. Confirm the header shows all four links inline — Home, Job History,
-   Projects, Contact — with no hamburger button visible.
+2. Confirm the header shows three links inline — Home, Job History
+   (routed to `/job-experience`), Projects — with no hamburger button
+   visible. Contact is not currently in the nav (dropped pending its
+   content; see spec Edge Cases).
 3. Confirm the link matching the current route is visually distinguished
    and carries `aria-current="page"` (check via devtools).
-4. Click Job History, Projects, and Contact: expect a 404 (their pages are
-   out of scope for this feature — see spec Assumptions), confirming the
-   links are real and correctly pointed, not dead/placeholder anchors.
+4. Click Job History and Projects: navigation succeeds (no 404), confirming
+   the links are real and correctly pointed, not dead/placeholder anchors.
 
 ### 2. Footer (User Story 2)
 
