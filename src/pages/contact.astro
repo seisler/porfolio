@@ -1,0 +1,19 @@
+---
+// No content-collection entry yet — this route isn't part of the terminal
+// command registry (src/content/commands/), so the client-side terminal
+// controller leaves its nav link alone and lets it navigate normally here.
+import BaseLayout from './_layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact · Mark Schenzle">
+	<p class="contact-stub">This page is still being written. Check back soon.</p>
+</BaseLayout>
+
+<style>
+	.contact-stub {
+		margin-top: var(--space-6);
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-sm);
+		color: var(--color-text-muted);
+	}
+</style>
