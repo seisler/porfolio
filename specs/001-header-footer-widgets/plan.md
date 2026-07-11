@@ -9,9 +9,11 @@
 Add a global header widget (navbar: Home, Job History, Projects, Contact —
 inline on desktop, behind a hamburger-triggered slide-in panel on tablet/
 mobile) and a global footer widget (build-time-computed copyright line), both
-consumed by `src/pages/index.astro` today and reusable by future pages. The
-disclosure behavior for the mobile/tablet panel is implemented with the
-native Popover API (per ADR-0002) — no client-side JavaScript.
+imported and rendered by `src/pages/_layouts/BaseLayout.astro`, the direct
+consumer, with `src/pages/index.astro` consuming them indirectly through
+that layout and reusable by future pages. The disclosure behavior for the
+mobile/tablet panel is implemented with the native Popover API (per
+ADR-0002) — no client-side JavaScript.
 
 ## Technical Context
 
