@@ -33,10 +33,11 @@
 
 - This spec was written retroactively, after the feature was already built
   iteratively with the user in conversation, rather than before
-  implementation. All requirements reflect actual, verified behavior rather
-  than intent — see the feature's commit/conversation history for the
-  supporting ADR (docs/adr/0008-client-side-terminal-navigation.md) and test
-  suite that back FR-002, FR-005, FR-006, FR-009, and FR-010.
+  implementation. All requirements reflect actual behavior already
+  implemented rather than intent; FR-002, FR-005, FR-006, FR-009, and
+  FR-010 are additionally verified by an automated test suite — see the
+  feature's commit/conversation history for the supporting ADR
+  (docs/adr/0008-client-side-terminal-navigation.md) and that test suite.
 - No clarification questions were needed: since implementation already
   exists, every requirement above reflects a decision already made and
   verified, not an open question.
