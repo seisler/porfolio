@@ -161,8 +161,9 @@ panel, and each remains clickable/tappable.
   clipped content) across mobile, tablet, and desktop viewport widths.
 - **SC-003**: 100% of pages on the site display the same header and footer,
   with the currently active page indicated in the header.
-- **SC-004**: The footer's displayed year is always the current year with no
-  manual update required as years pass.
+- **SC-004**: The footer's displayed year reflects the current year as of the
+  site's most recent build; static deployments must be rebuilt at least
+  annually to keep the year current.
 - **SC-005**: On tablet and mobile viewports, a visitor can reach any of the
   four nav links within two taps (open the menu, then tap the link).
 
