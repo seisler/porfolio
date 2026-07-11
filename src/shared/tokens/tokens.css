@@ -6,6 +6,8 @@
 	--color-text: hsl(0deg 0% 96%);
 	--color-text-muted: hsl(0deg 0% 55%);
 	--color-accent: hsl(150deg 70% 50%);
+	--color-accent-secondary: hsl(330deg 80% 65%);
+	--color-danger: hsl(0deg 70% 60%);
 	--color-border: hsl(0deg 0% 20%);
 	--font-family-mono: 'JetBrains Mono', monospace;
 	--font-size-xs: 0.75rem;
@@ -40,6 +42,14 @@
 	/* Motion — slide-in/out duration for the nav panel. */
 	--motion-duration-panel: 250ms;
 
+	/* Motion — blink cycle for the terminal-style text cursor. */
+	--motion-duration-cursor-blink: 1s;
+
+	/* Motion — fade-in duration for a single log line, and the delay step
+	   staggered between consecutive lines so they appear one at a time. */
+	--motion-duration-log-reveal: 300ms;
+	--motion-duration-log-stagger: 400ms;
+
 	/* Sizing — partial width of the lateral (tablet) nav panel. */
 	--size-panel-width: 20rem;
 }
@@ -48,3 +58,6 @@
    so these are resolved at build time by postcss-custom-media. */
 @custom-media --bp-md (min-width: 48rem);
 @custom-media --bp-lg (min-width: 64rem);
+
+/* Motion-preference token — resolved at build time like the breakpoints above. */
+@custom-media --motion-reduce (prefers-reduced-motion: reduce);
