@@ -1,0 +1,31 @@
+{
+	"command": "npm run job-experience",
+	"route": "/job-experience",
+	"title": "Job Experience · Mark Schenzle",
+	"lines": [
+		{
+			"time": "00:12:00",
+			"text": "Senior Frontend Developer · Netquest (Mar 2019 – Present) — Barcelona"
+		},
+		{
+			"time": "00:12:01",
+			"text": "Full Stack Developer (PHP → Frontend React) · Atrápalo (Jun 2017 – Mar 2019) — Barcelona"
+		},
+		{
+			"time": "00:12:02",
+			"text": "PHP Developer · LetsBonus (Dec 2016 – May 2017) — Barcelona"
+		},
+		{
+			"time": "00:12:03",
+			"text": "Backend Developer · Cloud District (Jan 2016 – Dec 2016) — Madrid"
+		},
+		{
+			"time": "00:12:04",
+			"text": "PHP Developer · Trovit (Mar 2014 – Jan 2016) — Barcelona"
+		},
+		{
+			"time": "00:12:05",
+			"text": "Web Developer Intern · Grupo Editorial Planeta (Oct 2013 – Mar 2014) — Barcelona"
+		}
+	]
+}
