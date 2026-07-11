@@ -182,6 +182,13 @@ const isActive = (href: string): boolean =>
 			translate: none;
 		}
 
+		/* Same specificity as the base `:popover-open` flex rule — wins here
+		   via source order, so a panel left open while resizing/rotating into
+		   desktop width still renders as the inline nav, not a flex column. */
+		.header__panel:popover-open {
+			display: block;
+		}
+
 		.header__list {
 			flex-flow: row wrap;
 			gap: var(--space-5);
