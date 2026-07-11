@@ -213,6 +213,17 @@ export function initTerminal(registry: CommandEntry[]): void {
 	const wireNavLinks = (): void => {
 		document.querySelectorAll<HTMLAnchorElement>('.header__link').forEach((link) => {
 			link.addEventListener('click', (event) => {
+				// Only hijack plain left-clicks — let modifier-clicks and
+				// non-primary buttons (new tab/window, etc.) behave normally.
+				if (
+					event.button !== 0 ||
+					event.ctrlKey ||
+					event.metaKey ||
+					event.shiftKey ||
+					event.altKey
+				) {
+					return;
+				}
 				const href = link.getAttribute('href');
 				if (!href) return;
 				const entry = byRoute.get(href);
@@ -251,6 +262,7 @@ export function initTerminal(registry: CommandEntry[]): void {
 		const lastRun = runs[runs.length - 1];
 		const lastEntry = byRoute.get(lastRun.route);
 		container.append(buildPromptEl(lastEntry ? lastEntry.lines.length : 0));
+		focusLastPrompt(container);
 
 		if (lastEntry) document.title = lastEntry.title;
 		setActiveRoute(lastRun.route);
@@ -288,6 +300,7 @@ export function initTerminal(registry: CommandEntry[]): void {
 	document.addEventListener('click', (event) => {
 		const target = event.target;
 		if (!(target instanceof Element)) return;
+		if (!target.closest('[data-terminal-log]')) return; // only in-terminal clicks refocus
 		if (target.closest('a')) return; // real links (nav, project URLs) behave normally
 		const activeContainer = document.querySelector<HTMLElement>('[data-terminal-log]');
 		activeContainer?.querySelector<HTMLInputElement>('.resume-log__prompt:last-of-type input')?.focus();
