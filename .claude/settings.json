@@ -14,8 +14,12 @@
       "Bash(astro dev *)",
       "Bash(curl -s http://localhost:4321/)",
       "Bash(npx --yes playwright --version)",
-      "Bash(grep -o 'resume-log__prompt.\\\\{0,140\\\\}')",
-      "Bash(grep -iB1 -A3 \"hint\")"
+      "Bash(grep -o 'resume-log__prompt.\\{0,140\\}')",
+      "Bash(grep -iB1 -A3 \"hint\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('/home/marks/projects/porfolio/.claude/settings.json'\\)\\); print\\(repr\\(d['permissions']['allow'][6]\\)\\)\")",
+      "Bash(python3 -c ' *)",
+      "Bash(git apply *)",
+      "Bash(git status *)"
     ]
   }
 }
