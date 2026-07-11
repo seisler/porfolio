@@ -10,7 +10,12 @@
       "Bash(git fetch *)",
       "Bash(git commit *)",
       "Bash(.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks)",
-      "Bash(git reset *)"
+      "Bash(git reset *)",
+      "Bash(astro dev *)",
+      "Bash(curl -s http://localhost:4321/)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(grep -o 'resume-log__prompt.\\\\{0,140\\\\}')",
+      "Bash(grep -iB1 -A3 \"hint\")"
     ]
   }
 }
