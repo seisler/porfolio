@@ -217,9 +217,9 @@ export function initTerminal(registry: CommandEntry[]): void {
 				if (!href) return;
 				const entry = byRoute.get(href);
 				if (!entry) return; // Not part of the registry yet — let it navigate normally.
-				event.preventDefault();
 				const container = document.querySelector<HTMLElement>('[data-terminal-log]');
-				if (!container) return;
+				if (!container) return; // No terminal log to render into — let it navigate normally.
+				event.preventDefault();
 				handleSubmit(entry.command, container);
 			});
 		});
